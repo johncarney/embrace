@@ -10,8 +10,8 @@ Gem::Specification.new do |spec|
   spec.email         = ["john@carney.id.au"]
 
   spec.summary       = %q{Strings are nice. Give 'em a hug.}
-  spec.description   = %q{Simple method for wrapping text.}
-  spec.homepage      = "http://github.com/johncarney/embrace"
+  spec.description   = %q{Simple library for enclosing text in brackets, or anything else that takes your fancy.}
+  spec.homepage      = "https://github.com/johncarney/embrace"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files -z`.split("\x0").reject do |f|
