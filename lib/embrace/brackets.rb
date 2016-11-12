@@ -2,31 +2,20 @@ require "embrace"
 
 module Embrace
   module Brackets
-    BRACKET_STYLES = Hash.new { |_, k| k }.merge({
-      "(" => ")",
-      "{" => "}",
-      "[" => "]",
-      "<" => ">"
-    }).freeze
-
-    module StringMethods
-      def bracket(*style)
-        Brackets.wrap(self, *style)
-      end
-    end
-
-    refine String do
-      include StringMethods
-    end
-
     module_function
 
-    def wrap(text, style = "(")
-      Embrace.wrap(text, style, BRACKET_STYLES[style.to_s])
+    def split(style)
+      i = style.size / 2
+      j = style.size - i
+      [ style[0...i], style[j..-1] ]
     end
+  end
 
-    def wrapper(*style)
-      ->(text) { wrap(text, *style) }
-    end
+  module_function
+
+  def Brackets(style)
+    return style.to_ary if style.respond_to? :to_ary
+
+    Brackets.split(style.to_s)
   end
 end

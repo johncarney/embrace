@@ -1,39 +1,50 @@
 require "spec_helper"
 
 describe Embrace::Brackets do
-  describe ".wrap" do
-    { "(" => ")", "{" => "}", "[" => "]", "<" => ">" }.each do |open, close|
-      context "given '#{open}' for 'style'" do
-        it "wraps the text in '#{open}#{close}'" do
-          expect(described_class.wrap("text", open)).to eq "#{open}text#{close}"
-        end
+  describe ".split" do
+    it "returns the opening and closing strings for the given style" do
+      expect(described_class.split("()")).to eq [ "(", ")" ]
+    end
+
+    context "given a style with an odd length" do
+      it "ignores the middle character" do
+        expect(described_class.split("<<.>>")).to eq [ "<<", ">>" ]
       end
     end
 
-    context "given an unrecognized bracket style" do
-      it "adds the 'style' parameter to the beginning and ending of the text" do
-        expect(described_class.wrap("text", "*")).to eq "*text*"
+    context "given an empty style" do
+      it "returns empty strings" do
+        expect(described_class.split("")).to eq [ "", "" ]
       end
     end
 
-    context "with no 'style' parameter" do
-      it "wraps the text in '()'" do
-        expect(described_class.wrap("text")).to eq "(text)"
+    context "given an single-character style" do
+      it "returns empty strings" do
+        expect(described_class.split("-")).to eq [ "", "" ]
       end
-    end
-
-    context "given nil for text" do
-      it { expect(described_class.wrap(nil)).to be_nil }
     end
   end
 
-  describe ".wrapper" do
-    it "returns a proc that wraps text in the given bracket style" do
-      wrapper = described_class.wrapper("[")
-      expected_result = Object.new
+  describe "method" do
+    context "given a string" do
+      it "returns the opening and closing strings for the given style" do
+        expect(described_class).to receive(:split).with("()").and_call_original
+        expect(Embrace::Brackets("()")).to eq [ "(", ")" ]
+      end
+    end
 
-      expect(described_class).to receive(:wrap).with("text", "[").and_return(expected_result)
-      expect(wrapper.call("text")).to eq expected_result
+    context "given an array" do
+      it "returns the array" do
+        expect(Embrace::Brackets([ "[", "]" ])).to eq [ "[", "]" ]
+      end
+    end
+
+    context "given some other type of value" do
+      it "converts the value to a string and returns the brackets for that style" do
+        style = double(:style)
+        expect(style).to receive(:to_s).and_return "<>"
+        expect(Embrace::Brackets(style)).to eq [ "<", ">" ]
+      end
     end
   end
 end
