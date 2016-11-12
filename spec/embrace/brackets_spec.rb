@@ -18,7 +18,7 @@ describe Embrace::Brackets do
       end
     end
 
-    context "given an single-character style" do
+    context "given a single-character style" do
       it "returns empty strings" do
         expect(described_class.split("-")).to eq [ "", "" ]
       end
