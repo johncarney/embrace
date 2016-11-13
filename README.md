@@ -2,6 +2,7 @@
 
 [![Gem Version][gem-badge]][gem]
 [![Build status][build-badge]][build]
+[![Coverage Status][coverage-badge]][coverage]
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby
 library into a gem. Put your Ruby code in the file `lib/embrace`. To experiment with that code, run `bin/console`
@@ -53,3 +54,5 @@ The gem is available as open source under the terms of the [MIT License](http://
 [gem]:              http://badge.fury.io/rb/embrace
 [build-badge]:      https://travis-ci.org/johncarney/embrace.svg?branch=master
 [build]:            https://travis-ci.org/johncarney/embrace
+[coverage-badge]:   https://img.shields.io/coveralls/johncarney/embrace.svg
+[coverage]:         https://coveralls.io/r/johncarney/embrace?branch=master
