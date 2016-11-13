@@ -19,6 +19,12 @@ RSpec.describe Embrace::Brackets do
     expect(described_class.new("(", ")").to_s).to eq "()"
   end
 
+  describe "#to_proc" do
+    it "returns a proc that wraps text" do
+      expect(%w{ text }.map(&described_class.new("[", "]").to_proc)).to eq [ "[text]" ]
+    end
+  end
+
   describe "#around" do
     it "wraps the given text in the brackets" do
       expect(described_class.new("<", ">").around("some text")).to eq "<some text>"

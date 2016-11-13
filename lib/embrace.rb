@@ -14,7 +14,7 @@ module Embrace
   module_function
 
   def bracket(text, style:, pattern: /\A.*\z/)
-    text.gsub(pattern, &Brackets(style).method(:around))
+    text.gsub(pattern, &Brackets(style).to_proc)
   end
 
   def bracketer(style:, **options)

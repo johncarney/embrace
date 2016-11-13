@@ -13,6 +13,10 @@ module Embrace
       "#{opening}#{text}#{closing}"
     end
 
+    def to_proc
+      method(:around)
+    end
+
     def to_ary
       [ opening, closing ]
     end
