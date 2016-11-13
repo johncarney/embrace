@@ -3,6 +3,10 @@ require "embrace/brackets"
 require "embrace/string_methods"
 
 module Embrace
+  BRACKETS    = Brackets.new("[", "]").freeze
+  PARENTHESES = Brackets.new("(", ")").freeze
+  BRACES      = Brackets.new("{", "}").freeze
+
   refine String do
     include StringMethods
   end
@@ -10,8 +14,7 @@ module Embrace
   module_function
 
   def bracket(text, style:, pattern: /\A.*\z/)
-    opening, closing = Brackets(style)
-    text.gsub(pattern, "#{opening}\\0#{closing}")
+    text.gsub(pattern, &Brackets(style).method(:around))
   end
 
   def bracketer(style:, **options)
