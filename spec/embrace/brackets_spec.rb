@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Embrace::Brackets do
+RSpec.describe Embrace::Brackets do
   describe ".split" do
     it "returns the opening and closing strings for the given style" do
       expect(described_class.split("()")).to eq [ "(", ")" ]

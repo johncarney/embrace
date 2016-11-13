@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Embrace::StringMethods do
+RSpec.describe Embrace::StringMethods do
   let(:the_string) { "string".extend described_class }
 
   describe "#wrap" do
