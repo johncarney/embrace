@@ -4,9 +4,8 @@
 [![Build status][build-badge]][build]
 [![Coverage Status][coverage-badge]][coverage]
 
-Embrace is a simply library for bracketing strings, or parts of strings. While it focuses on common
-bracketing styles - `()`, `[]`, and `{}` - you can use custom styles, and even wrap text in arbitrary
-strings.
+Embrace is a simple library for bracketing strings, or parts of strings. While it focuses on three common
+bracketing styles you can use custom styles, and even wrap text in arbitrary strings.
 
 ## Usage
 
@@ -74,7 +73,7 @@ If you need to wrap text in asymmetrical strings, then you can supply an array a
 "the quick brown fox.".bracket(style: %w{ beginning> <end }) # => "beginning>the quick brown fox.<end"
 ```
 
-Note that only the first two elements of the array will be use.
+Note that only the first two elements of the array will be used.
 
 ### Module function
 
@@ -120,7 +119,7 @@ version, push git commits and tags, and push the `.gem` file to [rubygems.org](h
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/embrace. This project is
+Bug reports and pull requests are welcome on GitHub at https://github.com/johncarney/embrace. This project is
 intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the
 [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
