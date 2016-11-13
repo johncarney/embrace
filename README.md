@@ -78,15 +78,15 @@ Note that only the first two elements of the array will be use.
 
 ### Module function
 
-`bracket` are available as module functions in the `Embrace` module.
+`bracket` is available as a module function in the `Embrace` module.
 
 ```ruby
-Embrace.bracket("some text", style: "<i></i>")   # => "<i>some text</i>"
+Embrace.bracket("some text", style: "<i></i>") # => "<i>some text</i>"
 ```
 
 ### Currying
 
-Finally, you can create a "curried" version `Embrace.bracket`.
+Finally, you can create a "curried" version of `Embrace.bracket`.
 
 ```ruby
 wrapper = Embrace.bracketer(style: "()", pattern: "text")
