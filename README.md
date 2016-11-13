@@ -4,11 +4,93 @@
 [![Build status][build-badge]][build]
 [![Coverage Status][coverage-badge]][coverage]
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby
-library into a gem. Put your Ruby code in the file `lib/embrace`. To experiment with that code, run `bin/console`
-for an interactive prompt.
+Embrace is a simply library for bracketing strings, or parts of strings. While it focused on common
+bracketing styles (`()`, `[]`, and `{}`) you can use custom styles, and even wrap text in arbitrary
+strings.
 
-TODO: Delete this and the text above, and describe your gem
+## Usage
+
+The simplest way to use Embrace is to use its `String` refinements. Just put the following in your
+file, module or class.
+
+```ruby
+require "embrace"
+
+module MyModule
+  using Embrace
+
+  # ...
+end
+```
+
+If you want Embrace's `String` methods to be available globally, then include `Embrace::StringMethods`
+in an app initializer somewhere.
+
+```ruby
+require "embrace"
+
+String.include Embrace::StringMethods
+```
+
+### Basic bracketing methods
+
+Whether you use the refinements, or include the string methods, the following string methods will become
+available:
+
+```
+"text".bracket      # => "[text]"
+"text".parenthesize # => "(text)"
+"text".brace        # => "{text}"
+```
+
+### Custom bracket styles
+
+Each of the methods accepts a `style` parameter, which will be used to bracket the text. Note that the
+style should include both opening and closing strings, but is otherwise entirely arbitrary. The first
+half of the style will be placed before the text, and the second half will be placed after the text. If
+the style is an odd length, the extra character will go after the text.
+
+```ruby
+"text".bracket(style: "<b></b>")   # => "<b>text</b>"
+"text".parenthesize(style: "<-->") # => "<-text->"
+"text".brace(style: "«»")          # => "«text»"
+```
+
+### Bracketing portions of text
+
+All of the Embrace methods accept a `pattern` parameters. If supplied, then only the matching portions
+will be bracketed.
+
+```ruby
+"the quick brown fox.".parenthesize                       # => "(the quick brown fox.)"
+"the quick brown fox.".parenthesize(pattern: /quick|fox/) # => "the (quick) brown (fox)."
+```
+
+### Wrapping text in arbitrary strings
+
+If you need to wrap text in asymmetrical strings, then you can use the `wrap` method.
+
+```ruby
+"the quick brown fox.".wrap("[beginning]", "[end]") # => "[beginning]the quick brown fox.[end]"
+```
+
+### Module functions
+
+`wrap` and `bracket` are available as module functions in the `Embrace` module.
+
+```ruby
+Embrace.wrap("some text", "start> ", " <finish") # => "start> some text <finish"
+Embrace.bracket("some text", style: "<i></i>")   # => "<i>some text</i>"
+```
+
+### Currying
+
+Finally, you can create "curried" versions of `Embrace.wrap` and `Embrace.bracket`.
+
+```ruby
+wrapper = Embrace.bracketer(style: "<b></b>", pattern: "text")
+[ "some text", "some more text" ].map(&wrapper) # => [ "some (text)", "some more (text)" ]
+```
 
 ## Installation
 
@@ -25,10 +107,6 @@ And then execute:
 Or install it yourself as:
 
     $ gem install embrace
-
-## Usage
-
-TODO: Write usage instructions here
 
 ## Development
 
