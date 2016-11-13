@@ -22,18 +22,18 @@ module Embrace
     alias_method :to_a, :to_ary
 
     def inspect
-      to_a.inspect
+      "#<Brackets style=#{to_a.join('').inspect}>"
     end
   end
 
   module_function
 
   def Brackets(style_or_opening, *closing)
-    return Brackets.new(style_or_opening.to_s, *closing.map(&:to_s)) unless closing.empty?
+    return Brackets.new(style_or_opening, *closing) unless closing.empty?
 
     case style_or_opening
     when Brackets then style_or_opening
-    when Array    then Brackets(*style_or_opening)
+    when Array    then Brackets.new(*style_or_opening)
     else
       Brackets.from_str(style_or_opening.to_s)
     end

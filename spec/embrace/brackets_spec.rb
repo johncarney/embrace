@@ -39,6 +39,12 @@ RSpec.describe Embrace::Brackets do
     end
   end
 
+  describe "#inspect" do
+    it do
+      expect(described_class.new("<-", "->").inspect).to eq '#<Brackets style="<-->">'
+    end
+  end
+
   describe "method" do
     context "given a style string" do
       it "returns a brackets closure for the given style" do
