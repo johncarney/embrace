@@ -17,15 +17,15 @@
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 
-require "embrace"
-
 RSpec.configure do |config|
   # Coveralls
   require "coveralls"
 
   Coveralls.wear! do
-    add_filter 'spec'
+    add_filter "spec"
   end
+
+  require "embrace"
 
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
