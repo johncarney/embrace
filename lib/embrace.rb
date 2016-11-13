@@ -9,19 +9,13 @@ module Embrace
 
   module_function
 
-  def wrap(text, before, after, pattern: /\A.*\z/)
-    text.gsub(pattern, "#{before}\\0#{after}")
-  end
-
-  def wrapper(*with, **options)
-    ->(text) { wrap(text, *with, **options) }
-  end
-
-  def bracket(text, style:, **options)
-    wrap(text, *Brackets(style), **options)
+  def bracket(text, style:, pattern: /\A.*\z/)
+    opening, closing = Brackets(style)
+    text.gsub(pattern, "#{opening}\\0#{closing}")
   end
 
   def bracketer(style:, **options)
-    wrapper(*Brackets(style), **options)
+    brackets = Brackets(style)
+    ->(text) { bracket(text, style: brackets, **options)}
   end
 end

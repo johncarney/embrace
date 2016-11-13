@@ -3,18 +3,6 @@ require "spec_helper"
 RSpec.describe Embrace::StringMethods do
   let(:the_string) { "string".extend described_class }
 
-  describe "#wrap" do
-    it "wraps the string in the given parameters" do
-      expect(the_string.wrap(">", "<")).to eq ">string<"
-    end
-
-    context "given a pattern" do
-      it "wraps the matching parts of the string in the given parameters" do
-        expect(the_string.wrap("(", ")", pattern: /[it]/)).to eq "s(t)r(i)ng"
-      end
-    end
-  end
-
   describe "#bracket" do
     it "puts square brackets around the string" do
       expect(the_string.bracket).to eq "[string]"

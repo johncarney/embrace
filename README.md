@@ -58,8 +58,8 @@ the style is an odd length, the extra character will go after the text.
 
 ### Bracketing portions of text
 
-All of the Embrace methods accept a `pattern` parameters. If supplied, then only the matching portions
-will be bracketed.
+All of the Embrace methods accept a `pattern` parameter. If supplied, then only the matching portions of
+the string will be bracketed.
 
 ```ruby
 "the quick brown fox.".parenthesize                       # => "(the quick brown fox.)"
@@ -68,27 +68,28 @@ will be bracketed.
 
 ### Wrapping text in arbitrary strings
 
-If you need to wrap text in asymmetrical strings, then you can use the `wrap` method.
+If you need to wrap text in asymmetrical strings, then you can supply an array as the `style` parameter.
 
 ```ruby
-"the quick brown fox.".wrap("[beginning]", "[end]") # => "[beginning]the quick brown fox.[end]"
+"the quick brown fox.".bracket(style: %w{ beginning> <end }) # => "beginning>the quick brown fox.<end"
 ```
 
-### Module functions
+Note that only the first two elements of the array will be use.
 
-`wrap` and `bracket` are available as module functions in the `Embrace` module.
+### Module function
+
+`bracket` are available as module functions in the `Embrace` module.
 
 ```ruby
-Embrace.wrap("some text", "start> ", " <finish") # => "start> some text <finish"
 Embrace.bracket("some text", style: "<i></i>")   # => "<i>some text</i>"
 ```
 
 ### Currying
 
-Finally, you can create "curried" versions of `Embrace.wrap` and `Embrace.bracket`.
+Finally, you can create a "curried" version `Embrace.bracket`.
 
 ```ruby
-wrapper = Embrace.bracketer(style: "<b></b>", pattern: "text")
+wrapper = Embrace.bracketer(style: "()", pattern: "text")
 [ "some text", "some more text" ].map(&wrapper) # => [ "some (text)", "some more (text)" ]
 ```
 
