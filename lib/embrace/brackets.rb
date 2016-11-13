@@ -3,15 +3,13 @@ require "embrace"
 module Embrace
   class Brackets < Proc
     class << self
-      def from_brackets(opening, closing)
-        new do |text|
-          "#{opening}#{text}#{closing}"
-        end
+      def new(opening, closing)
+        super(&(->(text) { "#{opening}#{text}#{closing}" }))
       end
 
       def from_str(style)
         i = style.size / 2
-        from_brackets(style[0...i], style[i..-1])
+        new(style[0...i], style[i..-1])
       end
     end
 
@@ -30,14 +28,14 @@ module Embrace
 
   module_function
 
-  def Brackets(style, *rest)
-    return Brackets.from_brackets(*[ style, *rest ].map(&:to_s)) unless rest.empty?
+  def Brackets(style_or_opening, *closing)
+    return Brackets.new(style_or_opening.to_s, *closing.map(&:to_s)) unless closing.empty?
 
-    case style
-    when Brackets then style
-    when Array    then Brackets(*style)
+    case style_or_opening
+    when Brackets then style_or_opening
+    when Array    then Brackets(*style_or_opening)
     else
-      Brackets.from_str(style.to_s)
+      Brackets.from_str(style_or_opening.to_s)
     end
   end
 end

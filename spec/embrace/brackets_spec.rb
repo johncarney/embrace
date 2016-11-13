@@ -15,9 +15,9 @@ RSpec.describe Embrace::Brackets do
     expect(described_class.from_str("<-->").to_a).to eq [ "<-", "->" ]
   end
 
-  describe ".from_brackets" do
+  describe ".new" do
     it "returns a brackets closure for the given brackets" do
-      expect(described_class.from_brackets("(", ")")).to have_brackets "(", ")"
+      expect(described_class.new("(", ")")).to have_brackets "(", ")"
     end
   end
 
@@ -40,13 +40,13 @@ RSpec.describe Embrace::Brackets do
   end
 
   describe "method" do
-    context "given a string" do
+    context "given a style string" do
       it "returns a brackets closure for the given style" do
         expect(Embrace::Brackets("()")).to have_brackets "(", ")"
       end
     end
 
-    context "given multiple strings" do
+    context "given opening and closing brackets" do
       it "returns a brackets closure using the given parameters" do
         expect(Embrace::Brackets("(", ")")).to have_brackets "(", ")"
       end
