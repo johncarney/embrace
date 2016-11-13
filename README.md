@@ -4,8 +4,8 @@
 [![Build status][build-badge]][build]
 [![Coverage Status][coverage-badge]][coverage]
 
-Embrace is a simply library for bracketing strings, or parts of strings. While it focused on common
-bracketing styles (`()`, `[]`, and `{}`) you can use custom styles, and even wrap text in arbitrary
+Embrace is a simply library for bracketing strings, or parts of strings. While it focuses on common
+bracketing styles - `()`, `[]`, and `{}` - you can use custom styles, and even wrap text in arbitrary
 strings.
 
 ## Usage
