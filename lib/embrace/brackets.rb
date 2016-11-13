@@ -6,8 +6,7 @@ module Embrace
 
     def split(style)
       i = style.size / 2
-      j = style.size - i
-      [ style[0...i], style[j..-1] ]
+      [ style[0...i], style[i..-1] ]
     end
   end
 

@@ -7,20 +7,14 @@ RSpec.describe Embrace::Brackets do
     end
 
     context "given a style with an odd length" do
-      it "ignores the middle character" do
-        expect(described_class.split("<<.>>")).to eq [ "<<", ">>" ]
+      it "the extra character goes in the closing string" do
+        expect(described_class.split("<b></b>")).to eq [ "<b>", "</b>" ]
       end
     end
 
     context "given an empty style" do
       it "returns empty strings" do
         expect(described_class.split("")).to eq [ "", "" ]
-      end
-    end
-
-    context "given a single-character style" do
-      it "returns empty strings" do
-        expect(described_class.split("-")).to eq [ "", "" ]
       end
     end
   end
