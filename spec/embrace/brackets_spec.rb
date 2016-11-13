@@ -7,17 +7,9 @@ RSpec.describe Embrace::Brackets do
     end
   end
 
-  it "can be implicitly converted to an array" do
-    expect(described_class.from_str("<-->").to_ary).to eq [ "<-", "->" ]
-  end
-
-  it "can be explicitly converted to an array" do
-    expect(described_class.from_str("<-->").to_a).to eq [ "<-", "->" ]
-  end
-
   describe ".new" do
     it "returns a brackets closure for the given brackets" do
-      expect(described_class.new("(", ")")).to have_brackets "(", ")"
+      expect(described_class.from_brackets("(", ")")).to have_brackets "(", ")"
     end
   end
 
@@ -36,12 +28,6 @@ RSpec.describe Embrace::Brackets do
       it "returns empty opening and closing brackets" do
         expect(described_class.from_str("")).to have_brackets "", ""
       end
-    end
-  end
-
-  describe "#inspect" do
-    it do
-      expect(described_class.new("<-", "->").inspect).to eq '#<Brackets style="<-->">'
     end
   end
 
@@ -64,8 +50,8 @@ RSpec.describe Embrace::Brackets do
       end
     end
 
-    context "given a Brackets object" do
-      it "returns the object" do
+    context "given a brackets closure" do
+      it "returns the closure" do
         brackets = described_class.from_str("[]")
         expect(Embrace::Brackets(brackets)).to be brackets
       end
