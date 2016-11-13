@@ -3,36 +3,26 @@ require "spec_helper"
 RSpec.describe Embrace::Brackets do
   matcher :have_brackets do |opening, closing|
     match do |actual|
-      actual.opening == opening && actual.closing == closing
+      actual.call("text") == "#{opening}text#{closing}"
     end
   end
 
-  it "can be implicity converted to an array" do
-    expect(described_class.new("(", ")").to_ary).to eq [ "(", ")" ]
+  it "can be implicitly converted to an array" do
+    expect(described_class.from_str("<-->").to_ary).to eq [ "<-", "->" ]
   end
 
-  it "can be explicity converted to an array" do
-    expect(described_class.new("(", ")").to_a).to eq [ "(", ")" ]
+  it "can be explicitly converted to an array" do
+    expect(described_class.from_str("<-->").to_a).to eq [ "<-", "->" ]
   end
 
-  it "can be explicity converted to a string" do
-    expect(described_class.new("(", ")").to_s).to eq "()"
-  end
-
-  describe "#to_proc" do
-    it "returns a proc that wraps text" do
-      expect(%w{ text }.map(&described_class.new("[", "]").to_proc)).to eq [ "[text]" ]
-    end
-  end
-
-  describe "#around" do
-    it "wraps the given text in the brackets" do
-      expect(described_class.new("<", ">").around("some text")).to eq "<some text>"
+  describe ".from_brackets" do
+    it "returns a brackets closure for the given brackets" do
+      expect(described_class.from_brackets("(", ")")).to have_brackets "(", ")"
     end
   end
 
   describe ".from_str" do
-    it "returns brackets for the given style" do
+    it "returns a brackets closure for the given style" do
       expect(described_class.from_str("()")).to have_brackets "(", ")"
     end
 
@@ -51,20 +41,32 @@ RSpec.describe Embrace::Brackets do
 
   describe "method" do
     context "given a string" do
-      it "returns brackets for the given style" do
-        expect(described_class).to receive(:from_str).with("()").and_call_original
+      it "returns a brackets closure for the given style" do
         expect(Embrace::Brackets("()")).to have_brackets "(", ")"
       end
     end
 
+    context "given multiple strings" do
+      it "returns a brackets closure using the given parameters" do
+        expect(Embrace::Brackets("(", ")")).to have_brackets "(", ")"
+      end
+    end
+
     context "given an array" do
-      it "returns the array as brackets" do
+      it "returns the array as a brackets closure" do
         expect(Embrace::Brackets([ "[", "]" ])).to have_brackets "[", "]"
       end
     end
 
+    context "given a Brackets object" do
+      it "returns the object" do
+        brackets = described_class.from_str("[]")
+        expect(Embrace::Brackets(brackets)).to be brackets
+      end
+    end
+
     context "given some other type of value" do
-      it "converts the value to a string and returns the brackets for that style" do
+      it "converts the value to a string and returns the brackets closure for that style" do
         style = double(:style)
         expect(style).to receive(:to_s).and_return "<>"
         expect(Embrace::Brackets(style)).to have_brackets "<", ">"
