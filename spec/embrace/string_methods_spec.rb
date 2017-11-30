@@ -56,4 +56,58 @@ RSpec.describe Embrace::StringMethods do
       end
     end
   end
+
+  describe "#single_quote" do
+    it "puts single quotes around the string" do
+      expect(the_string.single_quote).to eq "'string'"
+    end
+
+    context "given a bracket style" do
+      it "uses the given style" do
+        expect(the_string.single_quote(style: "<()>")).to eq "<(string)>"
+      end
+    end
+
+    context "given a pattern" do
+      it "puts single quotes around the matching parts of the string" do
+        expect(the_string.single_quote(pattern: /[it]/)).to eq "s't'r'i'ng"
+      end
+    end
+  end
+
+  describe "#double_quote" do
+    it "puts double quotes around the string" do
+      expect(the_string.double_quote).to eq '"string"'
+    end
+
+    context "given a bracket style" do
+      it "uses the given style" do
+        expect(the_string.double_quote(style: "<()>")).to eq "<(string)>"
+      end
+    end
+
+    context "given a pattern" do
+      it "puts double quotes around the matching parts of the string" do
+        expect(the_string.double_quote(pattern: /[it]/)).to eq 's"t"r"i"ng'
+      end
+    end
+  end
+
+  describe "#quote" do
+    it "puts double quotes around the string" do
+      expect(the_string.quote).to eq '"string"'
+    end
+
+    context "given a bracket style" do
+      it "uses the given style" do
+        expect(the_string.quote(style: "<()>")).to eq "<(string)>"
+      end
+    end
+
+    context "given a pattern" do
+      it "puts double quotes around the matching parts of the string" do
+        expect(the_string.quote(pattern: /[it]/)).to eq 's"t"r"i"ng'
+      end
+    end
+  end
 end

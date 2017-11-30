@@ -4,7 +4,7 @@
 [![Build status][build-badge]][build]
 [![Coverage Status][coverage-badge]][coverage]
 
-Embrace is a simple library for bracketing strings, or parts of strings. While it focuses on three common
+Embrace is a simple library for bracketing or quoting strings, or parts of strings. While it focuses on three common
 bracketing styles, you can use custom styles, or even wrap text in arbitrary strings.
 
 ## Usage
@@ -40,6 +40,8 @@ available:
 "text".bracket      # => "[text]"
 "text".parenthesize # => "(text)"
 "text".brace        # => "{text}"
+"text".single_quote # => "'text'"
+"text".double_quote # => "\"text\""
 ```
 
 ### Custom bracket styles
