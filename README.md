@@ -40,6 +40,8 @@ available:
 "text".bracket      # => "[text]"
 "text".parenthesize # => "(text)"
 "text".brace        # => "{text}"
+"text".single_quote # => "'text'"
+"text".double_quote # => "\"text\""
 ```
 
 ### Custom bracket styles

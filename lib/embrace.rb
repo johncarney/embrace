@@ -7,6 +7,9 @@ module Embrace
   PARENTHESES = Brackets("(", ")").freeze
   BRACES      = Brackets("{", "}").freeze
 
+  SINGLE_QUOTES = Brackets("'", "'").freeze
+  DOUBLE_QUOTES = Brackets('"', '"').freeze
+
   refine String do
     include StringMethods
   end
